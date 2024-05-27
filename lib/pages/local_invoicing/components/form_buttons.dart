@@ -10,22 +10,24 @@ class FormButtons extends StatefulWidget {
 class _FormButtonsState extends State<FormButtons> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () => {},
-          child: const Text('Save'),
-        ),
-        ElevatedButton(
-          onPressed: () => {},
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: () => {},
-          child: const Text('Delete'),
-        )
-      ],
+    return ExcludeFocus(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ElevatedButton(
+            onPressed: () => {},
+            child: const Text('Save'),
+          ),
+          ElevatedButton(
+            onPressed: () => {},
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () => {},
+            child: const Text('Delete'),
+          )
+        ],
+      ),
     );
   }
 }

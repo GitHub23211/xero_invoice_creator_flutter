@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/components/text_form_input.dart';
 
 class InvoiceInfoForm extends StatefulWidget {
   const InvoiceInfoForm({super.key});
@@ -10,21 +11,15 @@ class InvoiceInfoForm extends StatefulWidget {
 class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-            child: Container(
-                margin: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                child: TextFormField())),
-        Expanded(
-            child: Container(
-                margin: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                child: TextFormField())),
-        Expanded(
-            child: Container(
-                margin: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                child: TextFormField())),
+        ExcludeFocus(
+          child: Expanded(child: TextFormInput(labelText: 'Invoice Number')),
+        ),
+        Expanded(child: TextFormInput(labelText: 'Issue date')),
+        Expanded(child: TextFormInput(labelText: 'Manifest Number')),
+        Expanded(child: TextFormInput(labelText: 'Trailer Number (Optional)')),
       ],
     );
   }

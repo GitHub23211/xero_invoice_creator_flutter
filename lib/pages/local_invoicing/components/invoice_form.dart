@@ -18,11 +18,12 @@ class _InvoiceFormState extends State<InvoiceForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
+      child: const Column(
         children: [
           InvoiceInfoForm(),
           StoreNumForm(),
           EnteredManifests(),
+          SizedBox(height: 10),
           FormButtons(),
         ],
       ),

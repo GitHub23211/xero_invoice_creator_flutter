@@ -1,22 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/components/text_form_input.dart';
 
-class StoreNumForm extends StatefulWidget {
+class StoreNumForm extends StatelessWidget {
   const StoreNumForm({super.key});
 
   @override
-  State<StoreNumForm> createState() => _StoreNumFormState();
-}
-
-class _StoreNumFormState extends State<StoreNumForm> {
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextFormField(),
-        TextFormField(),
-        TextFormField(),
-      ],
-    );
+    double mQueryWidth = MediaQuery.of(context).size.width * 0.3;
+    return Row(children: [
+      Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: mQueryWidth,
+            child: TextFormInput(labelText: 'Store'),
+          ),
+          SizedBox(
+            width: mQueryWidth,
+            child: TextFormInput(labelText: 'Store'),
+          ),
+          SizedBox(
+            width: mQueryWidth,
+            child: TextFormInput(labelText: 'Store'),
+          ),
+        ],
+      )),
+      Expanded(
+        child: ExcludeFocus(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: () => {}, child: Text('Test')),
+            ElevatedButton(onPressed: () => {}, child: Text('Test')),
+            ElevatedButton(onPressed: () => {}, child: Text('Test')),
+          ],
+        )),
+      )
+    ]);
   }
 }
