@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/pages/home/components/menu_button.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/local_invoice.dart';
 
-class MenuButtons extends StatefulWidget {
-  const MenuButtons({super.key});
+class Menu extends StatelessWidget {
+  const Menu({super.key});
 
-  @override
-  State<MenuButtons> createState() => _MenuButtonsState();
-}
-
-class _MenuButtonsState extends State<MenuButtons> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         MenuButton(

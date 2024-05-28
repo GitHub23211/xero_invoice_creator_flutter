@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            child: MenuButtons(),
+            child: Menu(),
           ),
           Expanded(
             child: MenuText(),
