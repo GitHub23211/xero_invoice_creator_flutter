@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
-class EnteredManifests extends StatefulWidget {
+class EnteredManifests extends StatelessWidget {
   const EnteredManifests({super.key});
 
-  @override
-  State<EnteredManifests> createState() => _EnteredManifestsState();
-}
-
-class _EnteredManifestsState extends State<EnteredManifests> {
   @override
   Widget build(BuildContext context) {
     return Expanded(

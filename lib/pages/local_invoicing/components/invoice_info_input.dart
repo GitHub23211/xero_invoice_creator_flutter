@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/components/text_form_input.dart';
 
-class InvoiceInfoForm extends StatefulWidget {
+class InvoiceInfoForm extends StatelessWidget {
   const InvoiceInfoForm({super.key});
 
-  @override
-  State<InvoiceInfoForm> createState() => _InvoiceInfoFormState();
-}
-
-class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
   @override
   Widget build(BuildContext context) {
     return const Row(

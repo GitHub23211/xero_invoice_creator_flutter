@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class TextFormInput extends StatelessWidget {
   final String labelText;
+  final Function(String?)? onSaved;
 
   const TextFormInput({
     super.key,
     required this.labelText,
+    this.onSaved,
   });
 
   @override
@@ -18,6 +20,7 @@ class TextFormInput extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             labelText: labelText,
           ),
+          onSaved: onSaved,
         ));
   }
 }

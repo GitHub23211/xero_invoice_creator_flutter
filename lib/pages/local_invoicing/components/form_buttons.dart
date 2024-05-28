@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
-class FormButtons extends StatefulWidget {
+class FormButtons extends StatelessWidget {
   const FormButtons({super.key});
 
-  @override
-  State<FormButtons> createState() => _FormButtonsState();
-}
-
-class _FormButtonsState extends State<FormButtons> {
   @override
   Widget build(BuildContext context) {
     return ExcludeFocus(

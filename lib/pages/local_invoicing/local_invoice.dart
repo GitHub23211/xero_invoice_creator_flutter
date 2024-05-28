@@ -12,10 +12,6 @@ class LocalInvoicing extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void _onAdd() {
-    _formKey.currentState?.save();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +23,7 @@ class LocalInvoicing extends StatelessWidget {
               return Column(
                 children: [
                   InvoiceInfoForm(),
-                  StoreNumForm(onAdd: _onAdd),
+                  StoreNumForm(onAdd: () => _formKey.currentState?.save()),
                   EnteredManifests(),
                   FormButtons(),
                 ],
