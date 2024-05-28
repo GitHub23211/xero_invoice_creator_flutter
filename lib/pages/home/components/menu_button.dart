@@ -16,12 +16,6 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void changeTextOnHover(bool isHover, String text) {
-      if (isHover) {
-        context.read<MenuTextProvider>().changeText(text);
-      }
-    }
-
     void changeLocation() {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => page));
     }
@@ -30,7 +24,8 @@ class MenuButton extends StatelessWidget {
         width: 190,
         child: ElevatedButton(
           onPressed: changeLocation,
-          onHover: (b) => changeTextOnHover(b, description),
+          onHover: (b) =>
+              context.read<MenuTextProvider>().changeText(description),
           child: Text(buttonText),
         ));
   }
