@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/components/text_form_input.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/components/elements/text_form_input.dart';
 
 class InvoiceInfoForm extends StatelessWidget {
   const InvoiceInfoForm({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xero_app_flutter/pages/home/components/menu_button.dart';
+import 'package:xero_app_flutter/pages/home/components/elements/menu_button.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/local_invoice.dart';
 
 class Menu extends StatelessWidget {
