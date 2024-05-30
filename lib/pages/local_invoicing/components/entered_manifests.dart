@@ -7,7 +7,7 @@ class EnteredManifests extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView(
-      children: List<Widget>.generate(50, (int index) {
+      children: List<Widget>.generate(5, (int index) {
         return Container(
           color: Colors.blue,
           child: const Center(child: Text('Store num, store name, price')),
