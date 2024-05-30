@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:xero_app_flutter/models/invoice_model.dart';
 import 'package:xero_app_flutter/services/get_files.dart';
 
 class DataProvider extends ChangeNotifier {
   final XeroApi _api = XeroApi();
-  final InvoiceModel _invoice = InvoiceModel();
   Map<String, dynamic> _localPricing = <String, dynamic>{};
+  Map<String, dynamic> _fixedInfo = <String, dynamic>{};
+
+  Future<void> fetchFixedInfo() async {
+    _fixedInfo = await _api.getFixedInfo();
+    notifyListeners();
+  }
 
   Future<void> fetchLocalPricing() async {
     _localPricing = await _api.getLocalStores();
@@ -13,8 +17,5 @@ class DataProvider extends ChangeNotifier {
   }
 
   Map<String, dynamic> getLocalPricing() => _localPricing;
-
-  void addManifest(String? storeNum) {
-    if (storeNum!.isNotEmpty) _invoice.addManifest(storeNum);
-  }
+  Map<String, dynamic> getFixedInfo() => _fixedInfo;
 }
