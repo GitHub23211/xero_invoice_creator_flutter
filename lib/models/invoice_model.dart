@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class InvoiceModel {
-  final List<List<String>> _csv = List.empty();
+  late List<List<dynamic>> _csv;
 
-  void addManifest(String? storeNum) {
-    debugPrint(storeNum);
+  InvoiceModel(List<dynamic> headers) {
+    _csv = [headers];
+  }
+
+  void addLocalManifest(List<dynamic> row) {
+    _csv.add(row);
   }
 }
