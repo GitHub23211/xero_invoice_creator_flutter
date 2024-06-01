@@ -5,6 +5,7 @@ import 'package:xero_app_flutter/pages/local_invoicing/components/elements/text_
 class InvoiceInfoForm extends StatefulWidget {
   final TextEditingController invNumController;
   final TextEditingController invDateController;
+  final TextEditingController dueDateController;
   final TextEditingController manNumController;
   final TextEditingController trailNumController;
 
@@ -14,6 +15,7 @@ class InvoiceInfoForm extends StatefulWidget {
     required this.invDateController,
     required this.manNumController,
     required this.trailNumController,
+    required this.dueDateController,
   });
 
   @override
@@ -34,6 +36,8 @@ class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
 
     if (date != null) {
       widget.invDateController.text = _invDateFormatter.format(date);
+      widget.dueDateController.text = _invDateFormatter
+          .format(DateTime(date.year, date.month, date.day + 30));
     }
   }
 
@@ -52,6 +56,13 @@ class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
             controller: widget.invDateController,
             labelText: 'Issue date',
             onTap: _selectDate,
+            readOnly: true,
+          ),
+        ),
+        Expanded(
+          child: TextFormInput(
+            controller: widget.dueDateController,
+            labelText: 'Due date',
             readOnly: true,
           ),
         ),
