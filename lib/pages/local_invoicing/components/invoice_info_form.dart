@@ -66,18 +66,6 @@ class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
             readOnly: true,
           ),
         ),
-        Expanded(
-          child: TextFormInput(
-            controller: widget.manNumController,
-            labelText: 'Manifest Number',
-          ),
-        ),
-        Expanded(
-          child: TextFormInput(
-            controller: widget.trailNumController,
-            labelText: 'Trailer Number (Optional)',
-          ),
-        ),
       ],
     );
   }
