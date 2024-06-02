@@ -15,4 +15,8 @@ abstract class InvoiceStrategy {
   }
 
   void processManInfo(Map<String, dynamic> data);
+
+  void saveInvoice() {
+    invoice.saveToCSV();
+  }
 }

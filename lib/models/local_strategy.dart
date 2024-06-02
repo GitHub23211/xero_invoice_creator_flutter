@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/models/invoice_strategy.dart';
 
 class LocalStrategy extends InvoiceStrategy {
@@ -7,41 +6,59 @@ class LocalStrategy extends InvoiceStrategy {
   @override
   void processManInfo(Map<String, dynamic> data) {
     List<List<dynamic>> sortedStores = _sortStores(data['stores']);
+    bool firstStore = true;
 
     for (final store in sortedStores) {
-      final List<dynamic> item = <dynamic>[
-        fixedInfo['CONTACT'],
-        data['invNum'],
-        //refernce
-        data['issueDate'],
-        data['dueDate'],
-        store[0],
-        _getDescription(),
-        1,
-        store[1],
-        fixedInfo['CODE'],
-        fixedInfo['TAX']
-      ];
-
-      debugPrint(item.toString());
+      final List<dynamic> item = _createInvoiceItem(firstStore, store, data);
+      firstStore = false;
+      invoice.addItemLine(item);
     }
   }
 
   List<List<dynamic>> _sortStores(List<dynamic> stores) {
-    List<List<dynamic>> unsorted = List.empty(growable: true);
+    List<List<dynamic>> loads = List.empty(growable: true);
 
     for (final store in stores) {
-      final List<dynamic>? price = pricing[store];
-      if (price != null) {
-        unsorted.add(price);
+      final List<dynamic>? storeInfo = pricing[store];
+      if (storeInfo != null) {
+        loads.add([store, ...storeInfo]);
       }
     }
 
-    unsorted.sort((a, b) => b[1].compareTo(a[1]));
-    return unsorted;
+    loads.sort((a, b) => b[1].compareTo(a[1]));
+    return loads;
   }
 
-  String _getDescription() {
-    return 'test';
+  List<dynamic> _createInvoiceItem(
+    bool first,
+    List<dynamic> store,
+    Map<String, dynamic> data,
+  ) {
+    String storeNum = store[0];
+    String storeName = store[1];
+    int storePrice = store[2];
+
+    return <dynamic>[
+      fixedInfo['CONTACT'],
+      data['invNum'],
+      //reference
+      data['issueDate'],
+      data['dueDate'],
+      first ? 'AD-PRIM' : 'DROP-RATE',
+      _getDescription(first, data['manNum'], storeNum, storeName),
+      1,
+      first ? storePrice : 50,
+      fixedInfo['CODE'],
+      fixedInfo['TAX']
+    ];
+  }
+
+  String _getDescription(
+    bool first,
+    String manNum,
+    String storeNum,
+    String storeName,
+  ) {
+    return 'date - $storeNum - ${first ? '$storeName - $manNum' : storeName}';
   }
 }

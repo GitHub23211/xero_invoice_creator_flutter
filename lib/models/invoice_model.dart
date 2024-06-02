@@ -1,19 +1,23 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+import 'dart:async';
 
 class InvoiceModel {
-  late List<List<dynamic>> _csv;
+  late List<List<dynamic>> _invoice;
 
   InvoiceModel(List<dynamic> headers) {
-    _csv = [headers];
+    _invoice = [headers];
   }
 
-  void addManifest(List<dynamic> item) {
-    debugPrint(item.toString());
+  void addItemLine(List<dynamic> item) {
+    _invoice.add(item);
   }
 
-  List<String> formatLocal(Map<String, dynamic> data) {
-    List<String> rowToAdd = <String>[];
+  Future<void> saveToCSV() async {
+    const String filename = './test.csv';
+    await File(filename).writeAsString(_convertToCsv());
+  }
 
-    return rowToAdd;
+  String _convertToCsv() {
+    return _invoice.join('\n').replaceAll(RegExp(r'\[|\]'), '');
   }
 }
