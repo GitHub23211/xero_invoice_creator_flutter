@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/pages/home/components/elements/menu_button.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/invoice_info_input.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/local_invoice.dart';
 
 class Menu extends StatelessWidget {
@@ -13,27 +14,27 @@ class Menu extends StatelessWidget {
         MenuButton(
           buttonText: 'Local Invoicing',
           description: 'local invoicing',
-          page: LocalInvoicing(),
+          page: InvoiceInfoInput(),
         ),
         MenuButton(
           buttonText: 'Rigid Invoicing',
           description: 'rigid invoicing',
-          page: LocalInvoicing(),
+          page: InvoiceInfoInput(),
         ),
         MenuButton(
           buttonText: 'Employee Pay',
           description: 'employee pay',
-          page: LocalInvoicing(),
+          page: InvoiceInfoInput(),
         ),
         MenuButton(
           buttonText: 'Local Subbie Pay',
           description: 'subbie pay',
-          page: LocalInvoicing(),
+          page: InvoiceInfoInput(),
         ),
         MenuButton(
           buttonText: 'Store Pricings',
           description: 'store pricing',
-          page: LocalInvoicing(),
+          page: InvoiceInfoInput(),
         ),
       ],
     );
