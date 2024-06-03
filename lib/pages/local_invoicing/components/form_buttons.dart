@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FormButtons extends StatelessWidget {
-  const FormButtons({super.key});
+  final Function()? onPressed;
+  const FormButtons({
+    super.key,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,7 @@ class FormButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ElevatedButton(
-            onPressed: () => {},
+            onPressed: onPressed,
             child: const Text('Save'),
           ),
           ElevatedButton(

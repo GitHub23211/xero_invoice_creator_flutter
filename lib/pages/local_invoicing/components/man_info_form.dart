@@ -29,6 +29,12 @@ class _ManInfoFormState extends State<ManInfoForm> {
       lastDate: DateTime(DateTime.now().year + dateRange),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
     );
+
+    if (date != null) {
+      widget.manDateController.text = _invDateFormatter.format(date);
+      widget.manDateController.text = _invDateFormatter
+          .format(DateTime(date.year, date.month, date.day + 30));
+    }
   }
 
   @override
@@ -39,9 +45,8 @@ class _ManInfoFormState extends State<ManInfoForm> {
         Expanded(
           child: TextFormInput(
             controller: widget.manDateController,
-            labelText: 'Issue date',
+            labelText: 'Manifest date',
             onTap: _selectDate,
-            readOnly: true,
           ),
         ),
         Expanded(

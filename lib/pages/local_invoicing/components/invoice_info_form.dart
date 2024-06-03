@@ -6,16 +6,16 @@ class InvoiceInfoForm extends StatefulWidget {
   final TextEditingController invNumController;
   final TextEditingController invDateController;
   final TextEditingController dueDateController;
-  final TextEditingController manNumController;
-  final TextEditingController trailNumController;
+  final bool displayOnly;
+  final Function()? onSubmit;
 
   const InvoiceInfoForm({
     super.key,
     required this.invNumController,
     required this.invDateController,
-    required this.manNumController,
-    required this.trailNumController,
     required this.dueDateController,
+    this.onSubmit,
+    this.displayOnly = false,
   });
 
   @override
@@ -43,29 +43,28 @@ class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-            child: TextFormInput(
+        TextFormInput(
           controller: widget.invNumController,
           labelText: 'Invoice Number',
-        )),
-        Expanded(
-          child: TextFormInput(
-            controller: widget.invDateController,
-            labelText: 'Issue date',
-            onTap: _selectDate,
-            readOnly: true,
-          ),
         ),
-        Expanded(
-          child: TextFormInput(
-            controller: widget.dueDateController,
-            labelText: 'Due date',
-            readOnly: true,
-          ),
+        TextFormInput(
+          controller: widget.invDateController,
+          labelText: 'Issue date',
+          onTap: _selectDate,
+          readOnly: true,
         ),
+        TextFormInput(
+          controller: widget.dueDateController,
+          labelText: 'Due date',
+          readOnly: true,
+        ),
+        ElevatedButton(
+          onPressed: widget.onSubmit,
+          child: Text('Submit'),
+        )
       ],
     );
   }
