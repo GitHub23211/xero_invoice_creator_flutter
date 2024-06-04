@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:xero_app_flutter/models/csv_strategy.dart';
-import 'package:xero_app_flutter/models/add_item_strategy.dart';
-import 'package:xero_app_flutter/models/local_add_strategy.dart';
-import 'package:xero_app_flutter/models/save_strategy.dart';
+import 'package:xero_app_flutter/models/save_strategy/csv_strategy.dart';
+import 'package:xero_app_flutter/models/add_item_strategy/add_item_strategy.dart';
+import 'package:xero_app_flutter/models/add_item_strategy/local_add_strategy.dart';
+import 'package:xero_app_flutter/models/save_strategy/save_strategy.dart';
 
 class InvoiceModel {
   late final Map<String, dynamic> _invoice;

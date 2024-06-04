@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:xero_app_flutter/models/save_strategy.dart';
+import 'package:xero_app_flutter/models/save_strategy/save_strategy.dart';
 
 class CsvStrategy implements SaveStrategy {
   final List<List<dynamic>> _csv = <List>[];

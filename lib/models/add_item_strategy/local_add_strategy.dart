@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xero_app_flutter/models/add_item_strategy.dart';
+import 'package:xero_app_flutter/models/add_item_strategy/add_item_strategy.dart';
 
 class LocalAddStrategy extends AddItemStrategy {
   LocalAddStrategy(super.pricing, super.fixedInfo);
