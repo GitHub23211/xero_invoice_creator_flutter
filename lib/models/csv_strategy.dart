@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:xero_app_flutter/models/save_strategy.dart';
 
 class CsvStrategy implements SaveStrategy {
   final List<List<dynamic>> _csv = <List>[];
   late final List<dynamic> _headers;
-  late String _reference;
+  DateTime? _firstDate;
+  DateTime? _latestDate;
 
   CsvStrategy(List<dynamic> headers) {
     _headers = headers;
@@ -16,13 +18,16 @@ class CsvStrategy implements SaveStrategy {
   Future<void> save(Map<String, dynamic> invoice) async {
     _resetCsv();
     const String filename = './test.csv';
-    _reference = 'test';
     await File(filename).writeAsString(_convertToCsv(invoice));
   }
 
   String _convertToCsv(Map<String, dynamic> invoice) {
     for (final item in invoice['LineItems']) {
       _csv.add(_convertLineItems(invoice, item));
+    }
+
+    for (final line in _csv) {
+      line.insert(2, _createLocalReference());
     }
 
     return _csv.join('\n').replaceAll(RegExp(r'\[|\]'), '');
@@ -42,23 +47,48 @@ class CsvStrategy implements SaveStrategy {
   "*TaxType"
   */
   List<String> _convertLineItems(
-      Map<String, dynamic> invoice, Map<String, dynamic> lineItems) {
+      Map<String, dynamic> invoice, Map<String, dynamic> lineItem) {
+    _updateDates(lineItem['ManDate']);
     return [
       invoice['Contact'],
       invoice['InvoiceNumber'],
-      _reference,
+      // reference
       invoice['Date'],
       invoice['DueDate'],
-      lineItems['ItemCode'],
-      lineItems['Description'],
-      lineItems['Quantity'],
-      lineItems['UnitAmount'],
-      lineItems['AccountCode'],
+      lineItem['ItemCode'],
+      lineItem['Description'],
+      lineItem['Quantity'],
+      lineItem['UnitAmount'],
+      lineItem['AccountCode'],
     ];
+  }
+
+  void _updateDates(String date) {
+    final DateFormat formatter = DateFormat('dd/MM/yy');
+    DateTime current = formatter.parse(date);
+
+    if (_latestDate == null) {
+      _latestDate = current;
+    } else if (current.isAfter(_latestDate!)) {
+      _latestDate = current;
+    }
+
+    if (_firstDate == null) {
+      _firstDate = current;
+    } else if (current.isBefore(_firstDate!)) {
+      _firstDate = current;
+    }
+  }
+
+  String _createLocalReference() {
+    final DateFormat formatter = DateFormat('dd/MM/yy');
+    return 'LOCAL: ${formatter.format(_firstDate!)} - ${formatter.format(_latestDate!)}';
   }
 
   void _resetCsv() {
     _csv.clear();
+    _firstDate = null;
+    _latestDate = null;
     _csv.add(_headers);
   }
 }
