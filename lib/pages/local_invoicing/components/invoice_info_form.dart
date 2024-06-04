@@ -64,7 +64,11 @@ class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
         ElevatedButton(
           onPressed: widget.onSubmit,
           child: Text('Submit'),
-        )
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Cancel'),
+        ),
       ],
     );
   }

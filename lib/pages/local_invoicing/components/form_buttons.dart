@@ -14,17 +14,15 @@ class FormButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ElevatedButton(
-            onPressed: onPressed,
-            child: const Text('Save'),
-          ),
-          ElevatedButton(
-            onPressed: () => {},
+            onPressed: () => Navigator.of(context)
+              ..pop()
+              ..pop(),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () => {},
-            child: const Text('Delete'),
-          )
+            onPressed: onPressed,
+            child: const Text('Save'),
+          ),
         ],
       ),
     );
