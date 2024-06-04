@@ -29,9 +29,6 @@ class _EnteredManifestsState extends State<EnteredManifests> {
           onTap: () => _deleteItemLine(index),
           itemLine: lineItems[index],
         );
-        return Container(
-          color: Colors.black,
-        );
       }),
     ));
   }
