@@ -14,9 +14,13 @@ class ManListTile extends StatelessWidget {
     return ListTile(
       titleAlignment: ListTileTitleAlignment.center,
       title: Text('${itemLine['Description']}'),
-      trailing: GestureDetector(
-        onTap: onTap,
-        child: Icon(Icons.delete),
+      subtitle: Text('\$${itemLine['UnitAmount']}'),
+      trailing: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: onTap,
+          child: const Icon(Icons.delete),
+        ),
       ),
     );
   }
