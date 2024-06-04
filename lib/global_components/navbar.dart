@@ -13,9 +13,9 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        key: const Key('AppBarTitleText'),
         style: TextStyle(
           color: Theme.of(context).colorScheme.onPrimary,
+          fontSize: 18.0,
           fontWeight: FontWeight.bold,
         ),
       ),
