@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import 'package:xero_app_flutter/models/invoice_model.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/local_invoice.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/invoice_info/invoice_info_form.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/invoice_info/components/invoice_info_form.dart';
 
 class InvoiceInfoInput extends StatefulWidget {
   const InvoiceInfoInput({super.key});
