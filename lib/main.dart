@@ -21,6 +21,13 @@ class MyApp extends StatelessWidget {
       title: 'Xero App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            minimumSize: WidgetStateProperty.all<Size>(
+              const Size(200.0, 50.0),
+            ),
+          ),
+        ),
         useMaterial3: true,
       ),
       home: const Home(),

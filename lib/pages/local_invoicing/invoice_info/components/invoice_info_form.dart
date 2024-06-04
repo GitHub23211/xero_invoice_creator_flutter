@@ -61,13 +61,15 @@ class _InvoiceInfoFormState extends State<InvoiceInfoForm> {
           labelText: 'Due date',
           readOnly: true,
         ),
+        const SizedBox(height: 15.0),
         ElevatedButton(
           onPressed: widget.onSubmit,
-          child: Text('Submit'),
+          child: const Text('Submit'),
         ),
+        const SizedBox(height: 15.0),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
       ],
     );

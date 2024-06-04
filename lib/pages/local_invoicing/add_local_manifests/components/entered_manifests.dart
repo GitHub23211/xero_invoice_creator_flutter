@@ -23,13 +23,17 @@ class _EnteredManifestsState extends State<EnteredManifests> {
   Widget build(BuildContext context) {
     late final List<Map<String, dynamic>> lineItems = widget.invoice.getItems();
     return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
         child: ListView(
-      children: List<Widget>.generate(lineItems.length, (int index) {
-        return ManListTile(
-          onTap: () => _deleteItemLine(index),
-          itemLine: lineItems[index],
-        );
-      }),
-    ));
+          children: List<Widget>.generate(lineItems.length, (int index) {
+            return ManListTile(
+              onTap: () => _deleteItemLine(index),
+              itemLine: lineItems[index],
+            );
+          }),
+        ),
+      ),
+    );
   }
 }
