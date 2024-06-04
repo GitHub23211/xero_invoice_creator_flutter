@@ -48,6 +48,7 @@ class LocalAddStrategy extends AddItemStrategy {
         data['manNum'],
         storeNum,
         storeName,
+        data['trailNum'],
       ),
       'Quantity': '1',
       'UnitAmount': first ? storePrice.toString() : '50',
@@ -59,10 +60,11 @@ class LocalAddStrategy extends AddItemStrategy {
   String _getDescription(
     bool first,
     String manDate,
-    String manNum,
     String storeNum,
     String storeName,
+    String manNum,
+    String? trailNum,
   ) {
-    return '$manDate - $storeNum - ${first ? '$storeName - $manNum' : storeName}';
+    return '$manDate - $storeNum - ${first ? '$storeName - $manNum' : storeName}${trailNum != null ? ' - $trailNum' : ''}';
   }
 }

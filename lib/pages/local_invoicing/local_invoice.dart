@@ -37,7 +37,8 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
       Map<String, dynamic> data = <String, dynamic>{
         'stores': _storeNums,
         'manNum': _manNum.text,
-        'manDate': _manDate.text
+        'manDate': _manDate.text,
+        'trailNum': _trailNum.text,
       };
 
       widget.invoice.addLineItem(data);
