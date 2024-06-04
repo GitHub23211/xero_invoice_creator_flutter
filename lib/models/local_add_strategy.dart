@@ -11,14 +11,14 @@ class LocalAddStrategy extends AddItemStrategy {
 
     for (final store in sortedStores) {
       final Map<String, dynamic> item =
-          _createItemLine(firstStore, store, data);
+          _createLineItem(firstStore, store, data);
       firstStore = false;
       lineItems.add(item);
     }
   }
 
   List<List<dynamic>> _sortStores(List<dynamic> stores) {
-    List<List<dynamic>> loads = List.empty(growable: true);
+    List<List<dynamic>> loads = <List>[];
 
     for (final store in stores) {
       final List<dynamic>? storeInfo = pricing[store];
@@ -27,12 +27,12 @@ class LocalAddStrategy extends AddItemStrategy {
       }
     }
 
-    loads.sort((a, b) => a[1].compareTo(b[1]));
+    loads.sort((a, b) => b[2].compareTo(a[2]));
     debugPrint(loads.toString());
     return loads;
   }
 
-  Map<String, dynamic> _createItemLine(
+  Map<String, dynamic> _createLineItem(
     bool first,
     List<dynamic> store,
     Map<String, dynamic> data,
@@ -42,12 +42,14 @@ class LocalAddStrategy extends AddItemStrategy {
     int storePrice = store[2];
 
     return <String, dynamic>{
+      'ManNum': data['manNum'],
+      'ManDate': data['manDate'],
       'Description': _getDescription(
         first,
         data['manDate'],
-        data['manNum'],
         storeNum,
         storeName,
+        data['manNum'],
         data['trailNum'],
       ),
       'Quantity': '1',
@@ -63,8 +65,8 @@ class LocalAddStrategy extends AddItemStrategy {
     String storeNum,
     String storeName,
     String manNum,
-    String? trailNum,
+    String trailNum,
   ) {
-    return '$manDate - $storeNum - ${first ? '$storeName - $manNum' : storeName}${trailNum != null ? ' - $trailNum' : ''}';
+    return '$manDate - $storeNum - ${first ? '$storeName - $manNum' : storeName}${trailNum.isNotEmpty ? ' - $trailNum' : ''}';
   }
 }
