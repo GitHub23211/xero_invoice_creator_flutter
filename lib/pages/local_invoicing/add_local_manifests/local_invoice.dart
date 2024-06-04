@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:xero_app_flutter/models/invoice_model.dart';
 import 'package:xero_app_flutter/global_components/navbar.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/components/entered_manifests.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/components/form_buttons.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/components/man_info_form.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/components/store_num_form.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/entered_manifests.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/form_buttons.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/man_info_form.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/store_num_form.dart';
 
 class LocalInvoicing extends StatefulWidget {
   final InvoiceModel invoice;
+
   const LocalInvoicing({
     super.key,
     required this.invoice,
@@ -32,18 +33,20 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
   }
 
   void _onSubmit() {
-    _formKey.currentState!.save();
-    if (_storeNums.isNotEmpty) {
-      Map<String, dynamic> data = <String, dynamic>{
-        'stores': _storeNums,
-        'manNum': _manNum.text,
-        'manDate': _manDate.text,
-        'trailNum': _trailNum.text,
-      };
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      if (_storeNums.isNotEmpty) {
+        Map<String, dynamic> data = <String, dynamic>{
+          'stores': _storeNums,
+          'manNum': _manNum.text,
+          'manDate': _manDate.text,
+          'trailNum': _trailNum.text,
+        };
 
-      widget.invoice.addLineItem(data);
-      widget.invoice.updateManNums(_manNum.text);
-      setState(() => _storeNums.clear());
+        widget.invoice.addLineItem(data);
+        widget.invoice.updateManNums(_manNum.text);
+        setState(() => _storeNums.clear());
+      }
     }
   }
 

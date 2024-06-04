@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/pages/home/components/elements/menu_button.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/invoice_info_input.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/invoice_info/invoice_info_input.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});

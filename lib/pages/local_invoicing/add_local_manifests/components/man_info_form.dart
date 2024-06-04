@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/components/elements/text_form_input.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/elements/text_form_input.dart';
 
 class ManInfoForm extends StatefulWidget {
   final TextEditingController manNumController;

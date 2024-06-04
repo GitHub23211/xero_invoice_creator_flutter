@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/models/invoice_model.dart';
-import 'package:xero_app_flutter/pages/local_invoicing/components/elements/man_list_tile.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/elements/man_list_tile.dart';
 
 class EnteredManifests extends StatefulWidget {
   final InvoiceModel invoice;
