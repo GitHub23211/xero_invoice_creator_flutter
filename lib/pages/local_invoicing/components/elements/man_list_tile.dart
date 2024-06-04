@@ -13,7 +13,7 @@ class ManListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       titleAlignment: ListTileTitleAlignment.center,
-      title: Text('test'),
+      title: Text('${itemLine['Description']}'),
       trailing: GestureDetector(
         onTap: onTap,
         child: Icon(Icons.delete),

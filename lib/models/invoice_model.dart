@@ -10,6 +10,7 @@ class InvoiceModel {
   late AddItemStrategy _strat;
 
   /// _invoice Map structure per the Xero API POST Invoices specifications
+  /// ManNums not part of spec. Added to keep track of manifest numbers
   InvoiceModel(
     Map<String, dynamic> p,
     Map<String, dynamic> f,
@@ -43,13 +44,20 @@ class InvoiceModel {
     _invoice['Date'] = date;
     _invoice['DueDate'] = due;
     _invoice['InvoiceNumber'] = num;
-    debugPrint(_invoice.toString());
   }
 
   void addLineItem(Map<String, dynamic> data) {
     if (!_manNumExists(data['manNum'])) {
       _strat.add(data, getItems());
     }
+  }
+
+  void deleteLineItem(int index) {
+    String manNum = _invoice['LineItems'].removeAt(index)['ManNum'];
+    _invoice['ManNums'].remove(manNum);
+    _invoice['LineItems'] = _invoice['LineItems']
+        .where((item) => item['ManNum'] != manNum)
+        .toList();
   }
 
   void save() {

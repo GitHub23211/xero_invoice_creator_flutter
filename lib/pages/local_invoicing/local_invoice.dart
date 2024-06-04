@@ -68,8 +68,13 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
                 manNumController: _manNum,
                 trailNumController: _trailNum,
               ),
-              StoreNumForm(onSubmit: _onSubmit, onSaved: _onSavedStoreNum),
-              EnteredManifests(lineItems: widget.invoice.getItems()),
+              StoreNumForm(
+                onSubmit: _onSubmit,
+                onSaved: _onSavedStoreNum,
+              ),
+              EnteredManifests(
+                invoice: widget.invoice,
+              ),
               FormButtons(
                 onPressed: widget.invoice.save,
               ),
