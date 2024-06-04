@@ -23,7 +23,7 @@ class CsvStrategy implements SaveStrategy {
 
   String _convertToCsv(Map<String, dynamic> invoice) {
     for (final item in invoice['LineItems']) {
-      _csv.add(_convertLineItems(invoice, item));
+      _csv.add(_convertLineItem(invoice, item));
     }
 
     for (final line in _csv) {
@@ -46,7 +46,7 @@ class CsvStrategy implements SaveStrategy {
   "*AccountCode",
   "*TaxType"
   */
-  List<String> _convertLineItems(
+  List<String> _convertLineItem(
       Map<String, dynamic> invoice, Map<String, dynamic> lineItem) {
     _updateDates(lineItem['ManDate']);
     return [
