@@ -47,6 +47,7 @@ class _ManInfoFormState extends State<ManInfoForm> {
             controller: widget.manDateController,
             labelText: 'Manifest date',
             onTap: _selectDate,
+            validator: (s) => s!.isNotEmpty ? null : 'Enter date',
           ),
         ),
         Expanded(
