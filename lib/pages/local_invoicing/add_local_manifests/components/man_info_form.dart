@@ -52,6 +52,7 @@ class _ManInfoFormState extends State<ManInfoForm> {
         Expanded(
           child: TextFormInput(
             controller: widget.manNumController,
+            maxLength: 8,
             labelText: 'Manifest Number',
           ),
         ),
