@@ -29,7 +29,9 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
   final List<String> _storeNums = <String>[];
 
   void _onSavedStoreNum(String? storeNum) {
-    _storeNums.add(storeNum!);
+    if (storeNum!.isNotEmpty) {
+      _storeNums.add(storeNum);
+    }
   }
 
   void _onSubmit() {
