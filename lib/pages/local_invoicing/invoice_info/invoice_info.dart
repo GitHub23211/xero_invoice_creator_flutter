@@ -68,7 +68,7 @@ class _InvoiceInfoInputState extends State<InvoiceInfoInput> {
     return Scaffold(
       appBar: const NavBar(title: 'Create Local Invoice'),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(sidePadding, 0, sidePadding, 0),
+        padding: EdgeInsets.symmetric(horizontal: sidePadding),
         child: Form(
           child: InvoiceInfoForm(
             invNumController: _invNum,
