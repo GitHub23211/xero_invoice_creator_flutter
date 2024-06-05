@@ -15,11 +15,13 @@ class ManListTile extends StatelessWidget {
       titleAlignment: ListTileTitleAlignment.center,
       title: Text('${itemLine['Description']}'),
       subtitle: Text('\$${itemLine['UnitAmount']}'),
-      trailing: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: onTap,
-          child: const Icon(Icons.delete),
+      trailing: InkWell(
+        onTap: onTap,
+        hoverColor: Colors.black12,
+        borderRadius: BorderRadius.circular(10.0),
+        child: const Icon(
+          Icons.cancel_outlined,
+          color: Colors.red,
         ),
       ),
     );
