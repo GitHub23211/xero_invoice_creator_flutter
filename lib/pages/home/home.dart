@@ -8,18 +8,23 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: NavBar(
+    return Scaffold(
+      appBar: const NavBar(
         title: 'Xero App - Home',
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
+          const Expanded(
             child: Menu(),
           ),
           Expanded(
-            child: MenuText(),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.lightBlue.shade50,
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: const MenuText(),
+            ),
           )
         ],
       ),

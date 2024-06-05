@@ -61,28 +61,41 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: NavBar(title: widget.invoice.getInfo()),
-        body: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              ManInfoForm(
-                manDateController: _manDate,
-                manNumController: _manNum,
-                trailNumController: _trailNum,
-              ),
-              StoreNumForm(
-                onSubmit: _onSubmit,
-                onSaved: _onSavedStoreNum,
-              ),
-              EnteredManifests(
-                invoice: widget.invoice,
-              ),
-              FormButtons(
-                onPressed: widget.invoice.save,
-              ),
-            ],
+      appBar: NavBar(title: widget.invoice.getInfo()),
+      body: Container(
+        color: Colors.lightBlue.shade50,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 200.0,
           ),
-        ));
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  ManInfoForm(
+                    manDateController: _manDate,
+                    manNumController: _manNum,
+                    trailNumController: _trailNum,
+                  ),
+                  StoreNumForm(
+                    onSubmit: _onSubmit,
+                    onSaved: _onSavedStoreNum,
+                  ),
+                  EnteredManifests(
+                    invoice: widget.invoice,
+                  ),
+                  FormButtons(
+                    onPressed: widget.invoice.save,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
