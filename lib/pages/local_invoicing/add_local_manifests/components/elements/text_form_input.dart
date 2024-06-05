@@ -32,6 +32,7 @@ class TextFormInput extends StatelessWidget {
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           labelText: labelText,
+          counterText: "",
         ),
         controller: controller,
         onSaved: onSaved,
