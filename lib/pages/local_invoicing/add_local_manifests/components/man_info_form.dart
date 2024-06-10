@@ -20,6 +20,7 @@ class ManInfoForm extends StatefulWidget {
 
 class _ManInfoFormState extends State<ManInfoForm> {
   final DateFormat _invDateFormatter = DateFormat('dd/MM/yy');
+  final RegExp regExp = RegExp(r'[^\d]');
 
   Future<void> _selectDate() async {
     int dateRange = 10;
@@ -35,6 +36,14 @@ class _ManInfoFormState extends State<ManInfoForm> {
       widget.manDateController.text = _invDateFormatter
           .format(DateTime(date.year, date.month, date.day + 30));
     }
+  }
+
+  String? _manNumValidator(String? input) {
+    if (input == null) return null;
+    if (input.length < 8) return 'Invalid manifest number';
+    RegExpMatch? match = regExp.firstMatch(input);
+    if (match != null) return 'Nubmers only';
+    return null;
   }
 
   @override
@@ -55,6 +64,7 @@ class _ManInfoFormState extends State<ManInfoForm> {
             controller: widget.manNumController,
             maxLength: 8,
             labelText: 'Manifest Number',
+            validator: _manNumValidator,
           ),
         ),
         Expanded(
