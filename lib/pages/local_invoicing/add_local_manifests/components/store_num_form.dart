@@ -21,9 +21,6 @@ class StoreNumForm extends StatelessWidget {
     return null;
   }
 
-  FilteringTextInputFormatter _filterInputFormatter() =>
-      FilteringTextInputFormatter.deny(regExp);
-
   List<Widget> _createStoreNumInputs(double mQW) =>
       List<Widget>.generate(numStoreInputs, (_) => _storeNumInput(mQW))
         ..add(_addManifestButton());
@@ -35,7 +32,7 @@ class StoreNumForm extends StatelessWidget {
           maxLength: 3,
           onSaved: onSaved,
           validator: _validator,
-          inputFormatters: [_filterInputFormatter()],
+          inputFormatters: [FilteringTextInputFormatter.deny(regExp)],
         ),
       );
 
