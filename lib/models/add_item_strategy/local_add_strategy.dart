@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/models/add_item_strategy/add_item_strategy.dart';
 
-class LocalAddStrategy extends AddItemStrategy {
-  LocalAddStrategy(super.pricing, super.fixedInfo);
+class LocalAddStrategy implements AddItemStrategy {
+  late final Map<String, dynamic> _pricing;
+  late final Map<String, dynamic> _fixedInfo;
+
+  LocalAddStrategy(
+    Map<String, dynamic> p,
+    Map<String, dynamic> f,
+  ) {
+    _pricing = p;
+    _fixedInfo = f;
+  }
 
   @override
   void add(Map<String, dynamic> data, List<Map<String, dynamic>> lineItems) {
@@ -21,7 +30,7 @@ class LocalAddStrategy extends AddItemStrategy {
     List<List<dynamic>> loads = <List>[];
 
     for (final store in stores) {
-      final List<dynamic>? storeInfo = pricing[store];
+      final List<dynamic>? storeInfo = _pricing[store];
       if (storeInfo != null) {
         loads.add([store, ...storeInfo]);
       }
@@ -55,7 +64,7 @@ class LocalAddStrategy extends AddItemStrategy {
       'Quantity': '1',
       'UnitAmount': first ? storePrice.toString() : '50',
       'ItemCode': first ? 'AD-PRIM' : 'DROP-RATE',
-      'AccountCode': fixedInfo['CODE'],
+      'AccountCode': _fixedInfo['CODE'],
     };
   }
 
