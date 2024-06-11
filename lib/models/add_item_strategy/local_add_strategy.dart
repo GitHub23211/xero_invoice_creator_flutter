@@ -14,6 +14,9 @@ class LocalAddStrategy implements AddItemStrategy {
   }
 
   @override
+  bool isValidStoreNum(String storeNum) => _pricing.containsKey(storeNum);
+
+  @override
   void add(Map<String, dynamic> data, List<Map<String, dynamic>> lineItems) {
     List<List<dynamic>> sortedStores = _sortStores(data['stores']);
     bool firstStore = true;

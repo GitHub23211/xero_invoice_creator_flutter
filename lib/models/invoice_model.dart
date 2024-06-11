@@ -41,6 +41,8 @@ class InvoiceModel {
     _invoice['InvoiceNumber'] = num;
   }
 
+  bool isValidStoreNum(String storeNum) => _strat.isValidStoreNum(storeNum);
+
   void addLineItem(Map<String, dynamic> data) {
     if (!_manNumExists(data['manNum'])) {
       _strat.add(data, getItems());

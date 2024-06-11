@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
-
 import 'package:xero_app_flutter/models/invoice_model.dart';
 import 'package:xero_app_flutter/global_components/navbar.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/entered_manifests.dart';
@@ -29,7 +28,7 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
   final List<String> _storeNums = <String>[];
 
   void _onSavedStoreNum(String? storeNum) {
-    if (storeNum!.isNotEmpty) {
+    if (storeNum!.isNotEmpty && widget.invoice.isValidStoreNum(storeNum)) {
       _storeNums.add(storeNum);
     }
   }
