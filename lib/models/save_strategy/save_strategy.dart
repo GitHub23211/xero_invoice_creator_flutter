@@ -1,3 +1,3 @@
-interface class SaveStrategy {
-  void save(Map<String, dynamic> invoice) {}
+abstract interface class SaveStrategy {
+  void save(Map<String, dynamic> invoice);
 }
