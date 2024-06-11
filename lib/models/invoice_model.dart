@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xero_app_flutter/models/save_strategy/csv_strategy.dart';
 import 'package:xero_app_flutter/models/add_item_strategy/add_item_strategy.dart';
-import 'package:xero_app_flutter/models/add_item_strategy/local_add_strategy.dart';
 import 'package:xero_app_flutter/models/save_strategy/save_strategy.dart';
 
 class InvoiceModel {
@@ -11,15 +9,12 @@ class InvoiceModel {
 
   /// _invoice Map structure per the Xero API POST Invoices specifications
   /// ManNums not part of spec. Added to keep track of manifest numbers
-  InvoiceModel(
-    Map<String, dynamic> p,
-    Map<String, dynamic> f,
-  ) {
-    _save = CsvStrategy(f['HEADERS']);
-    _strat = LocalAddStrategy(p, f);
+  InvoiceModel(SaveStrategy s, AddItemStrategy a, String c) {
+    _save = s;
+    _strat = a;
     _invoice = {
       'Type': 'ACCREC',
-      'Contact': f['CONTACT'],
+      'Contact': c,
       'Date': null,
       'DueDate': null,
       'InvoiceNumber': null,

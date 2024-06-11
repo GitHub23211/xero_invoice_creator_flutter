@@ -1,4 +1,8 @@
 import 'package:xero_app_flutter/global_components/navbar.dart';
+import 'package:xero_app_flutter/models/add_item_strategy/add_item_strategy.dart';
+import 'package:xero_app_flutter/models/add_item_strategy/local_add_strategy.dart';
+import 'package:xero_app_flutter/models/save_strategy/csv_strategy.dart';
+import 'package:xero_app_flutter/models/save_strategy/save_strategy.dart';
 import 'package:xero_app_flutter/providers/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,10 +38,13 @@ class _InvoiceInfoInputState extends State<InvoiceInfoInput> {
     await dataProvider.fetchLocalPricing();
     await dataProvider.fetchFixedInfo();
 
-    _invoice = InvoiceModel(
-      dataProvider.getLocalPricing(),
-      dataProvider.getFixedInfo(),
-    );
+    Map<String, dynamic> fixedInfo = dataProvider.getFixedInfo();
+    Map<String, dynamic> pricing = dataProvider.getLocalPricing();
+
+    SaveStrategy csv = CsvStrategy(fixedInfo['HEADERS']);
+    AddItemStrategy local = LocalAddStrategy(pricing, fixedInfo);
+
+    _invoice = InvoiceModel(csv, local, fixedInfo['CONTACT']);
   }
 
   void _goToLocalInvoice() {
@@ -47,10 +54,13 @@ class _InvoiceInfoInputState extends State<InvoiceInfoInput> {
       _invNumFormatter.format(int.parse(_invNum.text)),
     );
 
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(
+      MaterialPageRoute(
         builder: (context) => LocalInvoicing(
-              invoice: _invoice,
-            )));
+          invoice: _invoice,
+        ),
+      ),
+    );
   }
 
   @override
