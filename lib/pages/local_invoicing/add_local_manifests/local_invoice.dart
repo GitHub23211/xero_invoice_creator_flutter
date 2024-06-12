@@ -36,7 +36,7 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
   }
 
   void _isAllowanceChecked(bool? b) {
-    isLoaded = b!;
+    setState(() => isLoaded = b!);
   }
 
   void _onSubmit() {
@@ -96,6 +96,7 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
                     onSubmit: _onSubmit,
                     onSaved: _onSavedStoreNum,
                     onCheck: _isAllowanceChecked,
+                    checkBoxValue: isLoaded,
                   ),
                   EnteredManifests(
                     invoice: widget.invoice,

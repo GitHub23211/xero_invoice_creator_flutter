@@ -9,12 +9,14 @@ class StoreNumForm extends StatelessWidget {
   final Function(bool? b) onCheck;
   final int numStoreInputs = 3;
   final RegExp regExp = RegExp(r'[^\d]');
+  final bool checkBoxValue;
 
   StoreNumForm({
     super.key,
     required this.onSubmit,
     required this.onSaved,
     required this.onCheck,
+    required this.checkBoxValue,
   });
 
   String? _validator(String? input) {
@@ -45,6 +47,7 @@ class StoreNumForm extends StatelessWidget {
           children: [
             AllowanceCheckbox(
               onChanged: onCheck,
+              checkBoxValue: checkBoxValue,
             ),
             ElevatedButton(
               onPressed: onSubmit,

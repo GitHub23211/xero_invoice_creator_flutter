@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AllowanceCheckbox extends StatefulWidget {
+class AllowanceCheckbox extends StatelessWidget {
   final Function(bool?) onChanged;
+  final bool checkBoxValue;
 
   const AllowanceCheckbox({
     super.key,
     required this.onChanged,
+    required this.checkBoxValue,
   });
-
-  @override
-  State<AllowanceCheckbox> createState() => _AllowanceCheckboxState();
-}
-
-class _AllowanceCheckboxState extends State<AllowanceCheckbox> {
-  bool _checkboxValue = false;
-
-  void _onClick(bool? isLoaded) {
-    widget.onChanged(isLoaded);
-    setState(() {
-      _checkboxValue = !_checkboxValue;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +16,8 @@ class _AllowanceCheckboxState extends State<AllowanceCheckbox> {
       width: 255,
       child: CheckboxListTile(
         title: const Text('Loaded by driver?'),
-        value: _checkboxValue,
-        onChanged: _onClick,
+        value: checkBoxValue,
+        onChanged: onChanged,
         secondary: const Icon(Icons.help_outline),
       ),
     );
