@@ -41,7 +41,7 @@ class StoreNumForm extends StatelessWidget {
 
   Widget _addManifestButton() => ExcludeFocus(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             AllowanceCheckbox(
               onChanged: onCheck,

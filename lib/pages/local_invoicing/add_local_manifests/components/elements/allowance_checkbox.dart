@@ -15,8 +15,8 @@ class AllowanceCheckbox extends StatefulWidget {
 class _AllowanceCheckboxState extends State<AllowanceCheckbox> {
   bool _checkboxValue = false;
 
-  void _onClick(bool? s) {
-    widget.onChanged(s);
+  void _onClick(bool? isLoaded) {
+    widget.onChanged(isLoaded);
     setState(() {
       _checkboxValue = !_checkboxValue;
     });
@@ -24,11 +24,13 @@ class _AllowanceCheckboxState extends State<AllowanceCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      width: 255,
       child: CheckboxListTile(
         title: const Text('Loaded by driver?'),
         value: _checkboxValue,
         onChanged: _onClick,
+        secondary: const Icon(Icons.help_outline),
       ),
     );
   }
