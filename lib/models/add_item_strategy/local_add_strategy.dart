@@ -22,8 +22,13 @@ class LocalAddStrategy implements AddItemStrategy {
     bool firstStore = true;
 
     for (final store in sortedStores) {
-      final Map<String, dynamic> item =
-          _createLineItem(firstStore, store, data);
+      late final Map<String, dynamic> item;
+      if (store.contains("ALLWNCE")) {
+        item = _createAllowanceLineItem(store, data);
+      } else {
+        item = _createLineItem(firstStore, store, data);
+      }
+
       firstStore = false;
       lineItems.add(item);
     }
@@ -40,7 +45,6 @@ class LocalAddStrategy implements AddItemStrategy {
     }
 
     loads.sort((a, b) => b[2].compareTo(a[2]));
-    debugPrint(loads.toString());
     return loads;
   }
 
@@ -51,7 +55,7 @@ class LocalAddStrategy implements AddItemStrategy {
   ) {
     String storeNum = store[0];
     String storeName = store[1];
-    int storePrice = store[2];
+    double storePrice = store[2].toDouble();
 
     return <String, dynamic>{
       'ManNum': data['manNum'],
@@ -80,5 +84,24 @@ class LocalAddStrategy implements AddItemStrategy {
     String trailNum,
   ) {
     return '$manDate - $storeNum - ${first ? '$storeName - $manNum' : storeName}${trailNum.isNotEmpty ? ' - $trailNum' : ''}';
+  }
+
+  Map<String, dynamic> _createAllowanceLineItem(
+    List<dynamic> store,
+    Map<String, dynamic> data,
+  ) {
+    String storeNum = store[0];
+    String storeName = store[1];
+    double storePrice = store[2].toDouble();
+
+    return <String, dynamic>{
+      'ManNum': data['manNum'],
+      'ManDate': data['manDate'],
+      'Description': storeName,
+      'Quantity': '1',
+      'UnitAmount': storePrice.toString(),
+      'ItemCode': storeNum,
+      'AccountCode': _fixedInfo['CODE'],
+    };
   }
 }
