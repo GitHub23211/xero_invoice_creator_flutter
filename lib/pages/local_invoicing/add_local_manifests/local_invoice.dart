@@ -27,16 +27,27 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<String> _storeNums = <String>[];
 
+  bool isLoaded = false;
+
   void _onSavedStoreNum(String? storeNum) {
     if (storeNum!.isNotEmpty && widget.invoice.isValidStoreNum(storeNum)) {
       _storeNums.add(storeNum);
     }
   }
 
+  void _isAllowanceChecked(bool? b) {
+    setState(() => isLoaded = b!);
+  }
+
   void _onSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (_storeNums.isNotEmpty) {
+        if (isLoaded) {
+          _storeNums.add('ALLWNCE');
+          isLoaded = false;
+        }
+
         Map<String, dynamic> data = <String, dynamic>{
           'stores': _storeNums,
           'manNum': _manNum.text,
@@ -84,6 +95,8 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
                   StoreNumForm(
                     onSubmit: _onSubmit,
                     onSaved: _onSavedStoreNum,
+                    onCheck: _isAllowanceChecked,
+                    checkBoxValue: isLoaded,
                   ),
                   EnteredManifests(
                     invoice: widget.invoice,
