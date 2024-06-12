@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/elements/allowance_checkbox.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/elements/text_form_input.dart';
 
 class StoreNumForm extends StatelessWidget {
   final Function() onSubmit;
   final Function(String? s) onSaved;
+  final Function(bool? b) onCheck;
   final int numStoreInputs = 3;
   final RegExp regExp = RegExp(r'[^\d]');
 
@@ -12,6 +14,7 @@ class StoreNumForm extends StatelessWidget {
     super.key,
     required this.onSubmit,
     required this.onSaved,
+    required this.onCheck,
   });
 
   String? _validator(String? input) {
@@ -37,9 +40,17 @@ class StoreNumForm extends StatelessWidget {
       );
 
   Widget _addManifestButton() => ExcludeFocus(
-        child: ElevatedButton(
-          onPressed: onSubmit,
-          child: const Text('Add Manifest'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AllowanceCheckbox(
+              onChanged: onCheck,
+            ),
+            ElevatedButton(
+              onPressed: onSubmit,
+              child: const Text('Add Manifest'),
+            ),
+          ],
         ),
       );
 
