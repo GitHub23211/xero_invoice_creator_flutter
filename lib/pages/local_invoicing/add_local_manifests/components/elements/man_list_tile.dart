@@ -13,9 +13,12 @@ class ManListTile extends StatelessWidget {
       ? const SizedBox(
           width: 0.0,
         )
-      : const Icon(
-          Icons.cancel_outlined,
-          color: Colors.red,
+      : IconButton(
+          icon: const Icon(
+            Icons.cancel_outlined,
+            color: Colors.red,
+          ),
+          onPressed: onTap,
         );
 
   @override
@@ -25,11 +28,7 @@ class ManListTile extends StatelessWidget {
         titleAlignment: ListTileTitleAlignment.center,
         title: Text('${itemLine['Description']}'),
         subtitle: Text('\$${itemLine['UnitAmount']}'),
-        trailing: InkWell(
-            onTap: onTap,
-            hoverColor: Colors.black12,
-            borderRadius: BorderRadius.circular(10.0),
-            child: _renderDeleteButton()),
+        trailing: _renderDeleteButton(),
       ),
       const Divider(
         height: 5,
