@@ -18,10 +18,11 @@ class _PricingInfoState extends State<PricingInfo> {
         title: 'Store Pricings',
       ),
       body: Padding(
-        padding: EdgeInsets.all(0.0),
+        padding: EdgeInsets.symmetric(vertical: 15.0),
         child: Column(
           children: [
             SearchPricings(),
+            SizedBox(height: 30.0),
             PricingView(),
           ],
         ),
