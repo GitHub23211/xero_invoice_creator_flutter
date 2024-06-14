@@ -30,9 +30,7 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
   bool isLoaded = false;
 
   void _onSavedStoreNum(String? storeNum) {
-    if (storeNum!.isNotEmpty && widget.invoice.isValidStoreNum(storeNum)) {
-      _storeNums.add(storeNum);
-    }
+    if (storeNum!.isNotEmpty) _storeNums.add(storeNum);
   }
 
   void _isAllowanceChecked(bool? b) {
@@ -97,6 +95,7 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
                     onSaved: _onSavedStoreNum,
                     onCheck: _isAllowanceChecked,
                     checkBoxValue: isLoaded,
+                    isValidNum: widget.invoice.isValidStoreNum,
                   ),
                   EnteredManifests(
                     invoice: widget.invoice,

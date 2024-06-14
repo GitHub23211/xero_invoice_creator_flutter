@@ -7,6 +7,7 @@ class StoreNumForm extends StatelessWidget {
   final Function() onSubmit;
   final Function(String? s) onSaved;
   final Function(bool? b) onCheck;
+  final bool Function(String num) isValidNum;
   final int numStoreInputs = 3;
   final RegExp regExp = RegExp(r'[^\d]');
   final bool checkBoxValue;
@@ -17,12 +18,14 @@ class StoreNumForm extends StatelessWidget {
     required this.onSaved,
     required this.onCheck,
     required this.checkBoxValue,
+    required this.isValidNum,
   });
 
   String? _validator(String? input) {
-    if (input == null) return null;
+    if (input == null || input.isEmpty) return null;
     RegExpMatch? match = regExp.firstMatch(input);
     if (match != null) return 'Nubmers only';
+    if (!isValidNum(input)) return 'Invalid store number';
     return null;
   }
 
