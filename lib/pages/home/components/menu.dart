@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/pages/home/components/elements/menu_button.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/invoice_info/invoice_info.dart';
+import 'package:xero_app_flutter/pages/store_pricings/store_pricings.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -33,7 +34,7 @@ class Menu extends StatelessWidget {
         MenuButton(
           buttonText: 'Store Pricings',
           description: 'store pricing',
-          page: InvoiceInfoInput(),
+          page: PricingInfo(),
         ),
       ],
     );
