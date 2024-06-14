@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/global_components/navbar.dart';
 import 'package:xero_app_flutter/pages/store_pricings/components/pricing_view.dart';
+import 'package:xero_app_flutter/pages/store_pricings/components/search_pricings.dart';
 
 class PricingInfo extends StatefulWidget {
   const PricingInfo({super.key});
@@ -20,7 +21,7 @@ class _PricingInfoState extends State<PricingInfo> {
         padding: EdgeInsets.all(0.0),
         child: Column(
           children: [
-            SearchBar(),
+            SearchPricings(),
             PricingView(),
           ],
         ),
