@@ -5,16 +5,34 @@ class SearchPricings extends StatelessWidget {
     super.key,
   });
 
+  Widget _searchBar() => Row(
+        children: [
+          Expanded(
+            child: TextField(
+              decoration: _searchBarDecoration(),
+            ),
+          ),
+        ],
+      );
+
+  InputDecoration _searchBarDecoration() => InputDecoration(
+        prefixIcon: const Icon(
+          Icons.search,
+        ),
+        suffixIcon: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.close),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
-    return SearchBar(
-      leading: const Icon(Icons.search),
-      trailing: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {},
-        ),
-      ],
+    double sidePadding = MediaQuery.of(context).size.width * 0.2;
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: sidePadding,
+      ),
+      child: _searchBar(),
     );
   }
 }
