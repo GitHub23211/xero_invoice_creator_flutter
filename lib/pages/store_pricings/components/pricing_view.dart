@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:xero_app_flutter/pages/store_pricings/components/elements/store_info_tile.dart';
 
 class PricingView extends StatelessWidget {
-  final Future<List<dynamic>> Function() getData;
+  final Future<List<dynamic>> data;
   const PricingView({
     super.key,
-    required this.getData,
+    required this.data,
   });
 
   Widget _createPricingList(List<dynamic> pricing) => Expanded(
         child: ListView(
           children: List<Widget>.generate(
             pricing.length,
-            (int i) => Container(
-              width: 100,
-              height: 30,
-              child: Text(
-                pricing[i].toString(),
-              ),
+            (int i) => StoreInfoTile(
+              storeInfo: pricing[i],
             ),
           ),
         ),
@@ -25,7 +22,7 @@ class PricingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getData(),
+        future: data,
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
@@ -34,8 +31,9 @@ class PricingView extends StatelessWidget {
               child: Text('${snapshot.error}'),
             );
           }
-
-          return _createPricingList(snapshot.data!);
+          List<dynamic> data = snapshot.data!;
+          data.removeAt(0);
+          return _createPricingList(data);
         });
   }
 }

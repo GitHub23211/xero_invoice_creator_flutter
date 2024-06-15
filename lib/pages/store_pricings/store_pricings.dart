@@ -52,7 +52,12 @@ class _PricingInfoState extends State<PricingInfo> {
     if (_initialLoad) {
       DataProvider provider = context.read<DataProvider>();
       await provider.fetchLocalPricing();
-      _pricing = provider.getLocalPricing().values.toList();
+      Map<String, dynamic> data = provider.getLocalPricing();
+      _pricing = data.keys.map((k) {
+        data[k].add(k);
+        return data[k];
+      }).toList();
+
       _initialLoad = false;
     }
     return _pricing;
@@ -80,7 +85,7 @@ class _PricingInfoState extends State<PricingInfo> {
             ),
             const SizedBox(height: 30.0),
             PricingView(
-              getData: _getData,
+              data: _getData(),
             ),
           ],
         ),
