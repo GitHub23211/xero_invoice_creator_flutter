@@ -29,8 +29,6 @@ class TextFormInput extends StatelessWidget {
       margin: const EdgeInsets.all(10.0),
       child: TextFormField(
         decoration: InputDecoration(
-          border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
           labelText: labelText,
           counterText: "",
         ),
