@@ -16,6 +16,7 @@ class _PricingInfoState extends State<PricingInfo> {
   late final TextEditingController _searchText;
   late List<dynamic> _pricing = <dynamic>[];
   bool _initialLoad = true;
+  int _searchTextLength = 0;
 
   @override
   void initState() {
@@ -29,37 +30,41 @@ class _PricingInfoState extends State<PricingInfo> {
   }
 
   void _onChanged() {
-    String s = _searchText.text;
-    if (s.isEmpty) {
-      setState(() {
-        _initialLoad = true;
-      });
-    } else {
-      setState(() {
-        _pricing = _filterList(s);
-      });
-    }
+    setState(() {
+      String s = _searchText.text;
+      if (s.length < _searchTextLength) {
+        _resetData();
+      }
+      _filterList(s);
+      _searchTextLength = _searchText.text.length;
+    });
   }
 
-  List<dynamic> _filterList(String? s) {
+  void _resetData() {
+    Map<String, dynamic> data = context.read<DataProvider>().getLocalPricing();
+    _pricing = data.keys.map((k) {
+      data[k].add(k);
+      return data[k];
+    }).toList();
+    _pricing.removeAt(0);
+  }
+
+  void _filterList(String? s) {
     Iterable<dynamic> filtered = _pricing.where((element) {
       return element[0].contains(s!.toUpperCase());
     });
-    return filtered.toList();
+    _pricing = filtered.toList();
+  }
+
+  Future<void> _fetchData() async {
+    DataProvider provider = context.read<DataProvider>();
+    await provider.fetchLocalPricing();
+    _initialLoad = false;
+    _resetData();
   }
 
   Future<List<dynamic>> _getData() async {
-    if (_initialLoad) {
-      DataProvider provider = context.read<DataProvider>();
-      await provider.fetchLocalPricing();
-      Map<String, dynamic> data = provider.getLocalPricing();
-      _pricing = data.keys.map((k) {
-        data[k].add(k);
-        return data[k];
-      }).toList();
-
-      _initialLoad = false;
-    }
+    if (_initialLoad) await _fetchData();
     return _pricing;
   }
 
