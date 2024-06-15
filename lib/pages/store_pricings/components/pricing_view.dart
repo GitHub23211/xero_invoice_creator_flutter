@@ -31,9 +31,7 @@ class PricingView extends StatelessWidget {
               child: Text('${snapshot.error}'),
             );
           }
-          List<dynamic> data = snapshot.data!;
-          data.removeAt(0);
-          return _createPricingList(data);
+          return _createPricingList(snapshot.data!);
         });
   }
 }
