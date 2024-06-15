@@ -13,11 +13,24 @@ class PricingInfo extends StatefulWidget {
 }
 
 class _PricingInfoState extends State<PricingInfo> {
+  late final TextEditingController _searchText;
   late List<dynamic> _pricing = <dynamic>[];
   bool _initialLoad = true;
 
-  void _onChanged(String? s) {
-    if (s == null || s.isEmpty) {
+  @override
+  void initState() {
+    super.initState();
+    _searchText = TextEditingController();
+    _searchText.addListener(_onChanged);
+  }
+
+  void _onClear() {
+    _searchText.text = '';
+  }
+
+  void _onChanged() {
+    String s = _searchText.text;
+    if (s.isEmpty) {
       setState(() {
         _initialLoad = true;
       });
@@ -46,6 +59,12 @@ class _PricingInfoState extends State<PricingInfo> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _searchText.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const NavBar(
@@ -56,7 +75,8 @@ class _PricingInfoState extends State<PricingInfo> {
         child: Column(
           children: [
             SearchPricings(
-              onChanged: _onChanged,
+              searchText: _searchText,
+              onClear: _onClear,
             ),
             const SizedBox(height: 30.0),
             PricingView(

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
 class SearchPricings extends StatelessWidget {
-  final Function(String?) onChanged;
+  final TextEditingController searchText;
+  final Function()? onClear;
 
   const SearchPricings({
     super.key,
-    required this.onChanged,
+    required this.searchText,
+    this.onClear,
   });
 
   Widget _searchBar() => Row(
         children: [
           Expanded(
             child: TextField(
+              controller: searchText,
               decoration: _searchBarDecoration(),
-              onChanged: onChanged,
             ),
           ),
         ],
@@ -24,8 +26,8 @@ class SearchPricings extends StatelessWidget {
           Icons.search,
         ),
         suffixIcon: IconButton(
-          onPressed: () {},
           icon: const Icon(Icons.close),
+          onPressed: onClear,
         ),
       );
 
