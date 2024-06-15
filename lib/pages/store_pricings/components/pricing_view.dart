@@ -1,32 +1,41 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-class PricingView extends StatefulWidget {
-  const PricingView({super.key});
+class PricingView extends StatelessWidget {
+  final Future<List<dynamic>> Function() getData;
+  const PricingView({
+    super.key,
+    required this.getData,
+  });
 
-  @override
-  State<PricingView> createState() => _PricingViewState();
-}
+  Widget _createPricingList(List<dynamic> pricing) => Expanded(
+        child: ListView(
+          children: List<Widget>.generate(
+            pricing.length,
+            (int i) => Container(
+              width: 100,
+              height: 30,
+              child: Text(
+                pricing[i].toString(),
+              ),
+            ),
+          ),
+        ),
+      );
 
-class _PricingViewState extends State<PricingView> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: List<Widget>.generate(
-            10,
-            (int i) => Container(
-                  width: 100,
-                  height: 100,
-                  color: Color.fromARGB(
-                    255,
-                    Random(22 + i).nextInt(255),
-                    Random(12 + 1).nextInt(255),
-                    Random(32 + i).nextInt(255),
-                  ),
-                )),
-      ),
-    );
+    return FutureBuilder(
+        future: getData(),
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('${snapshot.error}'),
+            );
+          }
+
+          return _createPricingList(snapshot.data!);
+        });
   }
 }

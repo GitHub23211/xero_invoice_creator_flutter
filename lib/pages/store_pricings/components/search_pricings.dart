@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SearchPricings extends StatelessWidget {
+  final Function(String?) onChanged;
+
   const SearchPricings({
     super.key,
+    required this.onChanged,
   });
 
   Widget _searchBar() => Row(
@@ -10,6 +13,7 @@ class SearchPricings extends StatelessWidget {
           Expanded(
             child: TextField(
               decoration: _searchBarDecoration(),
+              onChanged: onChanged,
             ),
           ),
         ],
