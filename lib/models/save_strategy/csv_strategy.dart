@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:xero_app_flutter/models/save_strategy/save_strategy.dart';
 
@@ -14,9 +15,13 @@ class CsvStrategy implements SaveStrategy {
 
   @override
   Future<void> save(Map<String, dynamic> invoice) async {
-    _resetCsv();
-    const String filename = './test.csv';
-    await File(filename).writeAsString(_convertToCsv(invoice));
+    final String? filename = await FilePicker.platform.saveFile(
+      fileName: '${invoice['InvoiceNumber']}.csv',
+    );
+    if (filename != null) {
+      _resetCsv();
+      await File(filename).writeAsString(_convertToCsv(invoice));
+    }
   }
 
   String _convertToCsv(Map<String, dynamic> invoice) {
