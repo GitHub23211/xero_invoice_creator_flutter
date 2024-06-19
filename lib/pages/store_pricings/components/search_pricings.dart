@@ -33,7 +33,7 @@ class SearchPricings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double sidePadding = MediaQuery.of(context).size.width * 0.2;
+    double sidePadding = MediaQuery.of(context).size.width * 0.4;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: sidePadding,
