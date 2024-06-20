@@ -1,11 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/elements/text_form_input.dart';
 
-class StoreInfoTile extends StatelessWidget {
+class StoreInfoTile extends StatefulWidget {
   final List<dynamic> storeInfo;
+
   const StoreInfoTile({
     super.key,
     required this.storeInfo,
   });
+
+  @override
+  State<StoreInfoTile> createState() => _StoreInfoTileState();
+}
+
+class _StoreInfoTileState extends State<StoreInfoTile> {
+  bool _isEditing = false;
+
+  void _setMode() {
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
+
+  Widget _viewTile() => ListTile(
+        leading: Text(
+          widget.storeInfo[2],
+          style: const TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+        title: Text(widget.storeInfo[0]),
+        subtitle: Text(
+          '\$${widget.storeInfo[1]}',
+        ),
+        trailing: _tileOptions(),
+      );
+
+  Widget _editTile() => ListTile(
+        leading: Text(
+          widget.storeInfo[2],
+          style: const TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+        title: TextFormInput(),
+        subtitle: Text(
+          '\$${widget.storeInfo[1]}',
+        ),
+        trailing: _tileOptions(),
+      );
 
   Widget _tileOptions() => SizedBox(
         width: 100.0,
@@ -13,7 +56,7 @@ class StoreInfoTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: _setMode,
               icon: const Icon(Icons.edit),
             ),
             IconButton(
@@ -26,18 +69,6 @@ class StoreInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(
-        storeInfo[2],
-        style: const TextStyle(
-          fontSize: 16.0,
-        ),
-      ),
-      title: Text(storeInfo[0]),
-      subtitle: Text(
-        '\$${storeInfo[1]}',
-      ),
-      trailing: _tileOptions(),
-    );
+    return _isEditing ? _editTile() : _viewTile();
   }
 }
