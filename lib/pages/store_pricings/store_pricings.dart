@@ -71,6 +71,7 @@ class _PricingInfoState extends State<PricingInfo> {
   @override
   void dispose() {
     super.dispose();
+    _searchText.removeListener(_onChanged);
     _searchText.dispose();
   }
 
