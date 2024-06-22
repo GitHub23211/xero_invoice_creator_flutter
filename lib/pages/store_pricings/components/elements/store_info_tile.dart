@@ -23,30 +23,6 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
     });
   }
 
-  Widget _customViewTile() => DefaultTextStyle.merge(
-        style: const TextStyle(
-          fontSize: 16.0,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          child: Row(
-            children: [
-              _storeNumLabel(),
-              const SizedBox(width: 30.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _storeNameLabel(),
-                  _storePriceLabel(),
-                ],
-              ),
-              const Spacer(),
-              _tileOptions()
-            ],
-          ),
-        ),
-      );
-
   Widget _textlabel(
           {required String label, TextStyle? style, Function? onHover}) =>
       MouseRegion(
@@ -88,6 +64,30 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
               icon: const Icon(Icons.close),
             ),
           ],
+        ),
+      );
+
+  Widget _customViewTile() => DefaultTextStyle.merge(
+        style: const TextStyle(
+          fontSize: 16.0,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Row(
+            children: [
+              _storeNumLabel(),
+              const SizedBox(width: 30.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _storeNameLabel(),
+                  _storePriceLabel(),
+                ],
+              ),
+              const Spacer(),
+              _tileOptions()
+            ],
+          ),
         ),
       );
 
