@@ -23,31 +23,34 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
     });
   }
 
-  Widget _textlabel(
-          {required String label, TextStyle? style, Function? onHover}) =>
+  Widget _textlabel({
+    required String label,
+    TextStyle? style,
+    Function(PointerHoverEvent e)? onHover,
+  }) =>
       MouseRegion(
+        onHover: onHover,
         child: Text(
           label,
           style: style,
         ),
-        onHover: (PointerHoverEvent e) => onHover,
       );
 
   Widget _storeNumLabel() => _textlabel(
         label: widget.storeInfo[2],
         style: const TextStyle(fontWeight: FontWeight.w600),
-        onHover: () => debugPrint('hover num'),
+        onHover: (PointerHoverEvent e) => debugPrint('hover num'),
       );
 
   Widget _storeNameLabel() => _textlabel(
         label: widget.storeInfo[0],
-        onHover: () => debugPrint('hover'),
+        onHover: (PointerHoverEvent e) => debugPrint('hover'),
       );
 
   Widget _storePriceLabel() => _textlabel(
         label: '\$${widget.storeInfo[1]}',
         style: const TextStyle(fontSize: 14.0),
-        onHover: () => debugPrint('hover'),
+        onHover: (PointerHoverEvent e) => debugPrint('hover'),
       );
 
   Widget _tileOptions() => SizedBox(
