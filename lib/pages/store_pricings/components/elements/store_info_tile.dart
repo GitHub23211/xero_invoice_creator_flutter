@@ -31,69 +31,47 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Row(
             children: [
-              MouseRegion(
-                child: Text(
-                  widget.storeInfo[2],
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onHover: (PointerHoverEvent e) => debugPrint('hover num'),
-              ),
+              _storeNumLabel(),
               const SizedBox(width: 30.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MouseRegion(
-                    child: Text(
-                      widget.storeInfo[0],
-                    ),
-                    onHover: (PointerHoverEvent e) => debugPrint('hover'),
-                  ),
-                  MouseRegion(
-                    child: Text(
-                      '\$${widget.storeInfo[1]}',
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                      ),
-                    ),
-                    onHover: (PointerHoverEvent e) => debugPrint('hover price'),
-                  ),
+                  _storeNameLabel(),
+                  _storePriceLabel(),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               _tileOptions()
             ],
           ),
         ),
       );
 
-  Widget _viewTile() => ListTile(
-        leading: Text(
-          widget.storeInfo[2],
-          style: const TextStyle(
-            fontSize: 16.0,
-          ),
+  Widget _textlabel(
+          {required String label, TextStyle? style, Function? onHover}) =>
+      MouseRegion(
+        child: Text(
+          label,
+          style: style,
         ),
-        title: Text(widget.storeInfo[0]),
-        subtitle: Text(
-          '\$${widget.storeInfo[1]}',
-        ),
-        trailing: _tileOptions(),
+        onHover: (PointerHoverEvent e) => onHover,
       );
 
-  Widget _editTile() => ListTile(
-        leading: Text(
-          widget.storeInfo[2],
-          style: const TextStyle(
-            fontSize: 16.0,
-          ),
-        ),
-        title: TextFormInput(),
-        subtitle: Text(
-          '\$${widget.storeInfo[1]}',
-        ),
-        trailing: _tileOptions(),
+  Widget _storeNumLabel() => _textlabel(
+        label: widget.storeInfo[2],
+        style: const TextStyle(fontWeight: FontWeight.w600),
+        onHover: () => debugPrint('hover num'),
+      );
+
+  Widget _storeNameLabel() => _textlabel(
+        label: widget.storeInfo[0],
+        onHover: () => debugPrint('hover'),
+      );
+
+  Widget _storePriceLabel() => _textlabel(
+        label: '\$${widget.storeInfo[1]}',
+        style: const TextStyle(fontSize: 14.0),
+        onHover: () => debugPrint('hover'),
       );
 
   Widget _tileOptions() => SizedBox(
@@ -113,8 +91,22 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
         ),
       );
 
+  Widget _editTile() => ListTile(
+        leading: Text(
+          widget.storeInfo[2],
+          style: const TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+        title: TextFormInput(),
+        subtitle: Text(
+          '\$${widget.storeInfo[1]}',
+        ),
+        trailing: _tileOptions(),
+      );
+
   @override
   Widget build(BuildContext context) {
-    return _isEditing ? _customViewTile() : _customViewTile();
+    return _isEditing ? _editTile() : _customViewTile();
   }
 }
