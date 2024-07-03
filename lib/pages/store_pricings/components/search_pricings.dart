@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SearchPricings extends StatefulWidget {
+class SearchPricings extends StatelessWidget {
   final TextEditingController searchText;
   final Function()? onClear;
 
@@ -10,29 +10,13 @@ class SearchPricings extends StatefulWidget {
     this.onClear,
   });
 
-  @override
-  State<SearchPricings> createState() => _SearchPricingsState();
-}
-
-class _SearchPricingsState extends State<SearchPricings> {
-  late FocusNode _searchFocus;
-  bool _showClearIcon = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _searchFocus = FocusNode();
-    _searchFocus.addListener(_toggleClearIcon);
-  }
-
   Widget _searchBar() => Row(
         children: [
           Expanded(
             child: TextField(
-              controller: widget.searchText,
+              controller: searchText,
               decoration: _searchBarDecoration(),
               autofocus: true,
-              focusNode: _searchFocus,
             ),
           ),
         ],
@@ -42,26 +26,13 @@ class _SearchPricingsState extends State<SearchPricings> {
         prefixIcon: const Icon(
           Icons.search,
         ),
-        suffixIcon: _showClearIcon
+        suffixIcon: searchText.text.isNotEmpty
             ? IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: widget.onClear,
+                onPressed: onClear,
               )
-            : Container(),
+            : const SizedBox(width: 0.0),
       );
-
-  void _toggleClearIcon() {
-    setState(() {
-      _showClearIcon = _searchFocus.hasFocus;
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _searchFocus.removeListener(_toggleClearIcon);
-    _searchFocus.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
