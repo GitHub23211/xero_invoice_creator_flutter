@@ -16,6 +16,7 @@ class SearchPricings extends StatelessWidget {
             child: TextField(
               controller: searchText,
               decoration: _searchBarDecoration(),
+              autofocus: true,
             ),
           ),
         ],
@@ -25,10 +26,12 @@ class SearchPricings extends StatelessWidget {
         prefixIcon: const Icon(
           Icons.search,
         ),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: onClear,
-        ),
+        suffixIcon: searchText.text.isNotEmpty
+            ? IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: onClear,
+              )
+            : const SizedBox(width: 0.0),
       );
 
   @override
