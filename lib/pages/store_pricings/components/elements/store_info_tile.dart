@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xero_app_flutter/global_components/popup_dialogue.dart';
 import 'package:xero_app_flutter/pages/store_pricings/components/elements/trailing_tile_options.dart';
 import 'package:xero_app_flutter/providers/data_provider.dart';
 
@@ -50,6 +51,13 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
   }
 
   void _onDelete() {
+    String num = widget.storeNum.text;
+    String name = widget.storeName.text;
+    PopupDialogue.warningPopup(
+      context: context,
+      title: 'Delete $num $name',
+      content: 'Are you sure you want to delete Store $num $name',
+    );
     context.read<DataProvider>().deleteLocalPricing(widget.initialStoreNum);
   }
 
