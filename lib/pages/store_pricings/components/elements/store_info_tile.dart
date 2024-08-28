@@ -57,8 +57,10 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
       context: context,
       title: 'Delete $num $name',
       content: 'Are you sure you want to delete Store $num $name',
+      onYes: () => context
+          .read<DataProvider>()
+          .deleteLocalPricing(widget.initialStoreNum),
     );
-    context.read<DataProvider>().deleteLocalPricing(widget.initialStoreNum);
   }
 
   Widget _customViewTile() => DefaultTextStyle.merge(
