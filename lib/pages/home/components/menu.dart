@@ -9,32 +9,18 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         MenuButton(
           buttonText: 'Local Invoicing',
           description: 'local invoicing',
           page: InvoiceInfoInput(),
         ),
-        MenuButton(
-          buttonText: 'Rigid Invoicing',
-          description: 'rigid invoicing',
-          page: InvoiceInfoInput(),
-        ),
-        MenuButton(
-          buttonText: 'Employee Pay',
-          description: 'employee pay',
-          page: InvoiceInfoInput(),
-        ),
-        MenuButton(
-          buttonText: 'Local Subbie Pay',
-          description: 'subbie pay',
-          page: InvoiceInfoInput(),
-        ),
+        const SizedBox(height: 50.0),
         MenuButton(
           buttonText: 'Store Pricings',
           description: 'store pricing',
-          page: PricingInfo(),
+          page: StorePricings(),
         ),
       ],
     );
