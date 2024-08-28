@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:xero_app_flutter/pages/store_pricings/components/elements/trailing_tile_options.dart';
+import 'package:xero_app_flutter/providers/data_provider.dart';
 
 class StoreInfoTile extends StatefulWidget {
-  final List<dynamic> storeInfo;
+  final String initialStoreNum;
+  final TextEditingController storeNum;
+  final TextEditingController storeName;
+  final TextEditingController storePricing;
 
   const StoreInfoTile({
     super.key,
-    required this.storeInfo,
+    required this.initialStoreNum,
+    required this.storeNum,
+    required this.storeName,
+    required this.storePricing,
   });
 
   @override
@@ -15,16 +23,14 @@ class StoreInfoTile extends StatefulWidget {
 
 class _StoreInfoTileState extends State<StoreInfoTile> {
   bool _isEditing = false;
-  final TextEditingController _initalStoreNum = TextEditingController();
-  final TextEditingController _initialStoreName = TextEditingController();
-  final TextEditingController _initalStorePricing = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  void initState() {
-    super.initState();
-    _initalStoreNum.text = widget.storeInfo[2];
-    _initialStoreName.text = widget.storeInfo[0];
-    _initalStorePricing.text = widget.storeInfo[1].toString();
+  void dispose() {
+    super.dispose();
+    widget.storeNum.dispose();
+    widget.storeName.dispose();
+    widget.storePricing.dispose();
   }
 
   void _setMode() {
@@ -33,62 +39,19 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
     });
   }
 
-  Widget _textlabel({
-    required String label,
-    TextStyle? style,
-    Function(PointerHoverEvent e)? onHover,
-  }) =>
-      MouseRegion(
-        onHover: onHover,
-        child: Text(
-          label,
-          style: style,
-        ),
-      );
+  void _onSave() async {
+    await context.read<DataProvider>().updateLocalPricing(
+          oldStoreNum: widget.initialStoreNum,
+          newStoreNum: widget.storeNum.text,
+          storeName: widget.storeName.text,
+          storePricing: int.parse(widget.storePricing.text),
+        );
+    _setMode();
+  }
 
-  Widget _storeNumLabel() => _textlabel(
-        label: _initalStoreNum.text,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-        onHover: (PointerHoverEvent e) => debugPrint('hover num'),
-      );
-
-  Widget _storeNameLabel() => _textlabel(
-        label: _initialStoreName.text,
-        onHover: (PointerHoverEvent e) => debugPrint('hover'),
-      );
-
-  Widget _storePriceLabel() => _textlabel(
-        label: '\$${_initalStorePricing.text}',
-        style: const TextStyle(fontSize: 14.0),
-        onHover: (PointerHoverEvent e) => debugPrint('hover'),
-      );
-
-  Widget _tileOptions() => SizedBox(
-        width: 100.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            _isEditing
-                ? IconButton(
-                    onPressed: _setMode,
-                    icon: const Icon(Icons.check),
-                  )
-                : IconButton(
-                    onPressed: _setMode,
-                    icon: const Icon(Icons.edit),
-                  ),
-            _isEditing
-                ? IconButton(
-                    onPressed: _setMode,
-                    icon: const Icon(Icons.close),
-                  )
-                : IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.delete),
-                  ),
-          ],
-        ),
-      );
+  void _onDelete() {
+    context.read<DataProvider>().deleteLocalPricing(widget.initialStoreNum);
+  }
 
   Widget _customViewTile() => DefaultTextStyle.merge(
         style: const TextStyle(
@@ -98,38 +61,44 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Row(
             children: [
-              _storeNumLabel(),
+              Text(
+                widget.storeNum.text,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
               const SizedBox(width: 30.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _storeNameLabel(),
-                  _storePriceLabel(),
+                  Text(widget.storeName.text),
+                  Text(
+                    '\$${widget.storePricing.text}',
+                    style: const TextStyle(fontSize: 14.0),
+                  ),
                 ],
               ),
               const Spacer(),
-              _tileOptions()
+              TrailingTileOptions(
+                isEditing: _isEditing,
+                onSave: _onSave,
+                onDelete: _onDelete,
+                setMode: _setMode,
+              ),
             ],
           ),
         ),
       );
 
-  Widget _editTile() => DefaultTextStyle.merge(
-        style: const TextStyle(
-          fontSize: 16.0,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  Widget _editTile() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        child: Form(
+          key: _formKey,
           child: Row(
             children: [
               SizedBox(
                 width: 80,
                 height: 50,
                 child: TextFormField(
-                  initialValue: _initalStoreNum.text,
-                  decoration: InputDecoration(
-                    label: Text('Number'),
-                  ),
+                  controller: widget.storeNum,
                 ),
               ),
               const SizedBox(width: 30.0),
@@ -137,13 +106,10 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 300,
+                    width: 250,
                     height: 50,
                     child: TextFormField(
-                      initialValue: _initialStoreName.text,
-                      decoration: InputDecoration(
-                        label: Text('Name'),
-                      ),
+                      controller: widget.storeName,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -151,20 +117,23 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
                     width: 100,
                     height: 50,
                     child: TextFormField(
-                      initialValue: _initalStorePricing.text,
-                      decoration: InputDecoration(
-                        label: Text('Pricing'),
-                      ),
+                      controller: widget.storePricing,
                     ),
                   ),
                 ],
               ),
               const Spacer(),
-              _tileOptions()
+              TrailingTileOptions(
+                isEditing: _isEditing,
+                onSave: _onSave,
+                onDelete: _onDelete,
+                setMode: _setMode,
+              ),
             ],
           ),
         ),
       );
+
   @override
   Widget build(BuildContext context) {
     return _isEditing ? _editTile() : _customViewTile();

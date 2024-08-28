@@ -8,11 +8,39 @@ class DataProvider extends ChangeNotifier {
 
   Future<void> fetchFixedInfo() async {
     _fixedInfo = await _api.getFixedInfo();
-    notifyListeners();
   }
 
   Future<void> fetchLocalPricing() async {
     _localPricing = await _api.getLocalStores();
+  }
+
+  Future<void> updateLocalPricing({
+    required String oldStoreNum,
+    required String newStoreNum,
+    required String storeName,
+    required int storePricing,
+  }) async {
+    if (oldStoreNum == newStoreNum) {
+      _localPricing[oldStoreNum] = [
+        storeName,
+        storePricing,
+      ];
+    } else if (_localPricing.containsKey(newStoreNum)) {
+      debugPrint('key already exists');
+    } else {
+      _localPricing.remove(oldStoreNum);
+      _localPricing[newStoreNum] = [
+        storeName,
+        storePricing,
+      ];
+    }
+    await _api.updateLocalStores(_localPricing);
+    notifyListeners();
+  }
+
+  Future<void> deleteLocalPricing(String oldStoreNum) async {
+    _localPricing.remove(oldStoreNum);
+    await _api.updateLocalStores(_localPricing);
     notifyListeners();
   }
 

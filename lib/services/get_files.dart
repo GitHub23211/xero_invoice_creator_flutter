@@ -21,4 +21,9 @@ class XeroApi {
         jsonDecode(await File('$_url/invoice_info.json').readAsString());
     return json;
   }
+
+  Future<void> updateLocalStores(Map<String, dynamic> updatedInfo) async {
+    await File('$_url/local_pricing.json')
+        .writeAsString(jsonEncode(updatedInfo));
+  }
 }

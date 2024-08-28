@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xero_app_flutter/pages/store_pricings/components/elements/store_info_tile.dart';
+import 'package:xero_app_flutter/pages/store_pricings/components/elements/pricing_list.dart';
 
-class PricingView extends StatefulWidget {
+class PricingView extends StatelessWidget {
   final Future<List<dynamic>> data;
   const PricingView({
     super.key,
@@ -9,35 +9,9 @@ class PricingView extends StatefulWidget {
   });
 
   @override
-  State<PricingView> createState() => _PricingViewState();
-}
-
-class _PricingViewState extends State<PricingView> {
-  List<dynamic> _pricing = <dynamic>[];
-
-  void _deleteStore(int index) {
-    setState(() {
-      _pricing.removeAt(index);
-    });
-  }
-
-  Widget _createPricingList() => Expanded(
-        child: ListView.separated(
-          itemBuilder: (_, int index) {
-            return StoreInfoTile(
-              storeInfo: _pricing[index],
-              //deleteStore: () => _deleteStore(i),
-            );
-          },
-          separatorBuilder: (_, __) => const Divider(),
-          itemCount: _pricing.length,
-        ),
-      );
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: widget.data,
+        future: data,
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
@@ -46,8 +20,7 @@ class _PricingViewState extends State<PricingView> {
               child: Text('${snapshot.error}'),
             );
           }
-          _pricing = snapshot.data!;
-          return _createPricingList();
+          return PricingList(pricing: snapshot.data!);
         });
   }
 }
