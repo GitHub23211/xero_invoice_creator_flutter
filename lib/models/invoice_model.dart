@@ -27,6 +27,8 @@ class InvoiceModel {
 
   List<Map<String, dynamic>> getItems() => _invoice['LineItems'];
 
+  String getStartDate() => _invoice['Date'];
+
   String getInfo() =>
       'Invoice Number - ${_invoice['InvoiceNumber']}, Date - ${_invoice['Date']}, Due Date - ${_invoice['DueDate']}';
 

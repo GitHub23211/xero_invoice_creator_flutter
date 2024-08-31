@@ -86,6 +86,7 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
               child: Column(
                 children: [
                   ManInfoForm(
+                    earliestDate: widget.invoice.getStartDate(),
                     manDateController: _manDate,
                     manNumController: _manNum,
                     trailNumController: _trailNum,

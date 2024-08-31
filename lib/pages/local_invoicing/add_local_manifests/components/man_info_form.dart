@@ -3,12 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:xero_app_flutter/pages/local_invoicing/add_local_manifests/components/elements/text_form_input.dart';
 
 class ManInfoForm extends StatefulWidget {
+  final String earliestDate;
   final TextEditingController manNumController;
   final TextEditingController manDateController;
   final TextEditingController trailNumController;
 
   const ManInfoForm({
     super.key,
+    required this.earliestDate,
     required this.manDateController,
     required this.manNumController,
     required this.trailNumController,
@@ -26,15 +28,13 @@ class _ManInfoFormState extends State<ManInfoForm> {
     int dateRange = 10;
     DateTime? date = await showDatePicker(
       context: context,
-      firstDate: DateTime(DateTime.now().year - dateRange),
+      firstDate: _invDateFormatter.parse(widget.earliestDate),
       lastDate: DateTime(DateTime.now().year + dateRange),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
     );
 
     if (date != null) {
       widget.manDateController.text = _invDateFormatter.format(date);
-      widget.manDateController.text = _invDateFormatter
-          .format(DateTime(date.year, date.month, date.day + 30));
     }
   }
 
