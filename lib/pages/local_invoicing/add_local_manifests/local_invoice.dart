@@ -91,12 +91,21 @@ class _LocalInvoicingState extends State<LocalInvoicing> {
                     manNumController: _manNum,
                     trailNumController: _trailNum,
                   ),
-                  StoreNumForm(
-                    onSubmit: _onSubmit,
-                    onSaved: _onSavedStoreNum,
-                    onCheck: _isAllowanceChecked,
-                    checkBoxValue: isLoaded,
-                    isValidNum: widget.invoice.isValidStoreNum,
+                  Focus(
+                    onKeyEvent: (_, e) {
+                      if (e.logicalKey.keyLabel.toLowerCase() == 'enter') {
+                        _onSubmit();
+                        return KeyEventResult.handled;
+                      }
+                      return KeyEventResult.ignored;
+                    },
+                    child: StoreNumForm(
+                      onSubmit: _onSubmit,
+                      onSaved: _onSavedStoreNum,
+                      onCheck: _isAllowanceChecked,
+                      checkBoxValue: isLoaded,
+                      isValidNum: widget.invoice.isValidStoreNum,
+                    ),
                   ),
                   EnteredManifests(
                     invoice: widget.invoice,
