@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xero_app_flutter/pages/home/home.dart';
-import 'package:xero_app_flutter/providers/data_provider.dart';
-import 'package:xero_app_flutter/providers/menu_text_provider.dart';
+import 'package:xero_app_flutter/controllers/data_controller.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => MenuTextProvider()),
     ChangeNotifierProvider(create: (context) => DataProvider()),
   ], child: const MyApp()));
 }

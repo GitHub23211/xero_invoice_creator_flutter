@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:xero_app_flutter/providers/menu_text_provider.dart';
 
 class MenuButton extends StatelessWidget {
   final String buttonText;
@@ -24,8 +23,6 @@ class MenuButton extends StatelessWidget {
         width: 190,
         child: ElevatedButton(
           onPressed: changeLocation,
-          onHover: (b) =>
-              context.read<MenuTextProvider>().changeText(description),
           child: Text(buttonText),
         ));
   }
