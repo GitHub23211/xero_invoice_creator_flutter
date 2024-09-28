@@ -4,7 +4,7 @@ import 'package:xero_app_flutter/global_components/navbar.dart';
 import 'package:xero_app_flutter/pages/store_pricings/components/add_store_view.dart';
 import 'package:xero_app_flutter/pages/store_pricings/components/pricing_view.dart';
 import 'package:xero_app_flutter/pages/store_pricings/components/search_pricings.dart';
-import 'package:xero_app_flutter/providers/data_provider.dart';
+import 'package:xero_app_flutter/controllers/data_controller.dart';
 
 class StorePricings extends StatefulWidget {
   const StorePricings({super.key});
@@ -57,7 +57,8 @@ class _StorePricingsState extends State<StorePricings> {
   }
 
   void _resetData() {
-    Map<String, dynamic> data = context.read<DataProvider>().getLocalPricing();
+    Map<String, dynamic> data =
+        context.read<DataController>().getLocalPricing();
     _pricing = data.keys.map((k) {
       dynamic temp = data[k].toList();
       temp.add(k);
@@ -74,7 +75,7 @@ class _StorePricingsState extends State<StorePricings> {
   }
 
   Future<void> _fetchData() async {
-    DataProvider data = context.watch<DataProvider>();
+    DataController data = context.watch<DataController>();
     await data.fetchLocalPricing();
     _resetData();
   }
@@ -86,7 +87,7 @@ class _StorePricingsState extends State<StorePricings> {
   }
 
   void addNewStore() {
-    context.read<DataProvider>().updateLocalPricing(
+    context.read<DataController>().updateLocalPricing(
           oldStoreNum: _storeNum.text,
           newStoreNum: _storeNum.text,
           storeName: _storeName.text,

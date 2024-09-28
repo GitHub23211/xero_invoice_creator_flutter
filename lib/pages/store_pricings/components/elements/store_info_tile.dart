@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xero_app_flutter/global_components/popup_dialogue.dart';
 import 'package:xero_app_flutter/pages/store_pricings/components/elements/trailing_tile_options.dart';
-import 'package:xero_app_flutter/providers/data_provider.dart';
+import 'package:xero_app_flutter/controllers/data_controller.dart';
 
 class StoreInfoTile extends StatefulWidget {
   final String initialStoreNum;
@@ -41,7 +41,7 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
   }
 
   void _onSave() async {
-    await context.read<DataProvider>().updateLocalPricing(
+    await context.read<DataController>().updateLocalPricing(
           oldStoreNum: widget.initialStoreNum,
           newStoreNum: widget.storeNum.text,
           storeName: widget.storeName.text,
@@ -58,7 +58,7 @@ class _StoreInfoTileState extends State<StoreInfoTile> {
       title: 'Delete $num $name',
       content: 'Are you sure you want to delete Store $num $name',
       onYes: () => context
-          .read<DataProvider>()
+          .read<DataController>()
           .deleteLocalPricing(widget.initialStoreNum),
     );
   }

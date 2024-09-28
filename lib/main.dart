@@ -5,7 +5,7 @@ import 'package:xero_app_flutter/controllers/data_controller.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => DataProvider()),
+    ChangeNotifierProvider(create: (context) => DataController()),
   ], child: const MyApp()));
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xero_app_flutter/services/get_files.dart';
 
-class DataProvider extends ChangeNotifier {
+class DataController extends ChangeNotifier {
   final XeroApi _api = XeroApi();
   Map<String, dynamic> _localPricing = <String, dynamic>{};
   Map<String, dynamic> _fixedInfo = <String, dynamic>{};

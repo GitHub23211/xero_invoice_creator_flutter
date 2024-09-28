@@ -3,7 +3,7 @@ import 'package:xero_app_flutter/models/add_item_strategy/add_item_strategy.dart
 import 'package:xero_app_flutter/models/add_item_strategy/local_add_strategy.dart';
 import 'package:xero_app_flutter/models/save_strategy/csv_strategy.dart';
 import 'package:xero_app_flutter/models/save_strategy/save_strategy.dart';
-import 'package:xero_app_flutter/providers/data_provider.dart';
+import 'package:xero_app_flutter/controllers/data_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +33,7 @@ class _InvoiceInfoInputState extends State<InvoiceInfoInput> {
   }
 
   void _loadData() async {
-    DataProvider dataProvider = context.read<DataProvider>();
+    DataController dataProvider = context.read<DataController>();
 
     await dataProvider.fetchLocalPricing();
     await dataProvider.fetchFixedInfo();
