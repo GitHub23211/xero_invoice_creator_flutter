@@ -24,7 +24,7 @@ class StoreNumForm extends StatelessWidget {
   String? _validator(String? input) {
     if (input == null || input.isEmpty) return null;
     RegExpMatch? match = regExp.firstMatch(input);
-    if (match != null) return 'Nubmers only';
+    if (match != null) return 'Numbers only';
     if (!isValidNum(input)) return 'Invalid store number';
     return null;
   }
